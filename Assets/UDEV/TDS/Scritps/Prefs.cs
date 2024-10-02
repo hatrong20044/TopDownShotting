@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,20 +11,20 @@ public static class Prefs
           set=> PlayerPrefs.SetInt(PrefConst.COIN_KEY, value);
           get=>PlayerPrefs.GetInt(PrefConst.COIN_KEY,0);
       }
-    public static int playerData
+    public static String playerData
     {
-        set => PlayerPrefs.SetInt(PrefConst.PLAYER_DATA_KEY, value);
-        get => PlayerPrefs.GetInt(PrefConst.PLAYER_DATA_KEY, 0);
+        set => PlayerPrefs.SetString(PrefConst.PLAYER_DATA_KEY, value);
+        get => PlayerPrefs.GetString(PrefConst.PLAYER_DATA_KEY);
     }
-    public static int playerWeaponData
+    public static String playerWeaponData
     {
-        set => PlayerPrefs.SetInt(PrefConst.PLAYER_WEAPON_DATA_KEY, value);
-        get => PlayerPrefs.GetInt(PrefConst.PLAYER_WEAPON_DATA_KEY, 0);
+        set => PlayerPrefs.SetString(PrefConst.PLAYER_WEAPON_DATA_KEY, value);
+        get => PlayerPrefs.GetString(PrefConst.PLAYER_WEAPON_DATA_KEY);
     }
-    public static int enemyData
+    public static String enemyData
     {
-        set => PlayerPrefs.SetInt(PrefConst.ENEMY_DATA_KEY, value);
-        get => PlayerPrefs.GetInt(PrefConst.ENEMY_DATA_KEY, 0);
+        set => PlayerPrefs.SetString(PrefConst.ENEMY_DATA_KEY, value);
+        get => PlayerPrefs.GetString(PrefConst.ENEMY_DATA_KEY);
     }
 
 
