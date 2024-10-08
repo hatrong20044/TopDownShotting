@@ -70,7 +70,8 @@ public class Weapon : MonoBehaviour
 
         if (m_muzzleFlashPrefab)//neu ton tai
         {
-            Instantiate(m_muzzleFlashPrefab, m_shootingPoint.position, transform.rotation); 
+           var muzzleFlashClone= Instantiate(m_muzzleFlashPrefab, m_shootingPoint.position, transform.rotation);
+            muzzleFlashClone.transform.SetParent(m_shootingPoint);
         }
         if(m_bulletPrefab)
         {

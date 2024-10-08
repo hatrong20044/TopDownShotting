@@ -11,11 +11,13 @@ public class Player : Actor
     [SerializeField] private float m_accelerationSpeed;
     [SerializeField] private float m_maxMousePosDistance;
     [SerializeField] private Vector2 m_velocityLimit;//gioi han vtoc
+    [SerializeField] private float m_enemyDectionRadius;//ban kinh nv chinh no co the tim tHAY ENEMY
+    [SerializeField] private LayerMask m_enemyDetectionLayer;
 
     private float m_curSpeed;
     private Actor m_enemyTargeted;
     private PlayerStats m_playerStats;
-
+    private Vector2 m_enemyTargetedDir;
 
     [Header("Player Event:")]
     public UnityEvent OnAddXp;
@@ -43,6 +45,71 @@ public class Player : Actor
     {
         Move();
     }
+
+    private void FixedUpdate()
+    {
+        DectectEnemy();
+    }
+
+    private void DectectEnemy()
+    {
+        var enemyFindeds = Physics2D.OverlapCircleAll(transform.position, m_enemyDectionRadius, m_enemyDetectionLayer);
+
+        var finalEnemy=FindNearestEnemy(enemyFindeds);
+
+        if(finalEnemy==null) return;
+
+        m_enemyTargeted=finalEnemy;
+        WeaponHandle();
+    }
+
+    private void WeaponHandle()
+    {
+       if(m_enemyTargeted==null || weapon==null) return;//neu k co con nv minh nham toi hoac k co dan
+          m_enemyTargetedDir =m_enemyTargeted.transform.position-weapon.transform.position;
+        m_enemyTargetedDir.Normalize();
+
+        float angle = Mathf.Atan2(m_enemyTargetedDir.y,m_enemyTargetedDir.x)*Mathf.Rad2Deg;   
+        weapon.transform.rotation=Quaternion.Euler(0f,0f,angle);
+
+        if (m_isKnockback)
+        {
+           // m_rb.velocity = m_enemyTargetedDir * -statData.knockbackForce * Time.deltaTime;
+            return;
+        }
+        weapon.Shoot(m_enemyTargetedDir);
+
+    }
+
+    private Actor FindNearestEnemy(Collider2D[] enemyFindeds)
+    {
+        float minDistance = 0;
+        Actor finalEnemy = null;
+
+        if (enemyFindeds == null || enemyFindeds.Length <= 0) return null;
+
+        for (int i = 0; i < enemyFindeds.Length; i++)
+        {
+            var enemyFinded = enemyFindeds[i];
+            if (enemyFinded == null) continue; //continue tuc la ngat code va chuyen sang vong lap moi
+            if(finalEnemy==null)
+            {
+                minDistance = Vector2.Distance(transform.position, enemyFinded.transform.position);
+            }
+            else
+            {
+                float distanceTemp=Vector2.Distance(transform.position,enemyFinded.transform.position);
+                if (distanceTemp > minDistance) continue;
+                
+                minDistance = distanceTemp;//day la dang bai toan tim gia tri nho nhat
+                
+            }
+            finalEnemy = enemyFinded.GetComponent<Actor>();
+
+        }
+        return finalEnemy;
+    }
+
     protected override void Move()
     {
        if(IsDead)return;
@@ -62,6 +129,7 @@ public class Player : Actor
             }
             return;
         }
+        m_rb.velocity = m_enemyTargetedDir * -statData.knockbackForce * Time.deltaTime;
         ChangeAnim(AnimConst.PLAYER_IDLE_ANIM);
     }
 
@@ -87,5 +155,51 @@ public class Player : Actor
         m_rb.velocity=new Vector2(velocityLimitX, velocityLimitY);
         ChangeAnim(AnimConst.PLAYER_RUN_ANIM);
 
+    }
+
+    public void AddXp(float xpBonus)
+    {
+        if (m_playerStats == null) return;
+
+        m_playerStats.xp += xpBonus;
+        m_playerStats.Upgrade(OnUpgradeStats);
+        OnAddXp?.Invoke();
+        m_playerStats.Save();
+
+
+    }
+
+    private void OnUpgradeStats()
+    {
+        OnLevelUp?.Invoke();
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if ( m_isInvincible) return;
+
+        CurHp -= damage;
+        Knockback();
+        OnTakeDamage?.Invoke();
+        if (CurHp > 0) return;
+        //giam so may cua player dang co
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(TagConsts.ENEMY_TAG))
+        {
+            Enemy enemy =collision.gameObject.GetComponent<Enemy>();
+            if(enemy != null)
+            {
+                TakeDamage(enemy.CurDamage);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color32(133, 250, 47, 50);
+        Gizmos.DrawSphere(transform.position, m_enemyDectionRadius);
     }
 }
