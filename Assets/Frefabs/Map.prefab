@@ -417,6 +417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 601176900180024245}
+  - component: {fileID: -7303929790109058702}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -443,6 +444,26 @@ Transform:
   - {fileID: 5713368189637187764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7303929790109058702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4110454640721950216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03717dd7f4557964b98ce672e69d9287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawnPoint: {fileID: 8594254310310316134}
+  m_aiSpawnPoints:
+  - {fileID: 8369837064133360940}
+  - {fileID: 7322840220997901728}
+  - {fileID: 8442321895493766352}
+  - {fileID: 8656003424849379480}
+  - {fileID: 7682298625518284462}
+  - {fileID: 9057084168913580886}
 --- !u!1 &4205886161607293122
 GameObject:
   m_ObjectHideFlags: 0

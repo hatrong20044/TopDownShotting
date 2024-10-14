@@ -42,7 +42,7 @@ public class PlayerStats : ActorStats
             Save();
             OnSuccess?.Invoke();
         }
-        if (xp <= levelUpXpRequired || IsMaxLevel())
+        if (xp < levelUpXpRequired || IsMaxLevel())
         {
             OnFailed?.Invoke();
         }

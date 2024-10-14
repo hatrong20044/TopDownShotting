@@ -16,8 +16,8 @@ MonoBehaviour:
   damage: 1
   moveSpeed: 700
   knockbackForce: 100
-  knockbackTime: 0.5
-  invincibleTime: 0.3
+  knockbackTime: 0.8
+  invincibleTime: 1
   level: 1
   maxLevel: 100
   xp: 0

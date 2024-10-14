@@ -182,7 +182,21 @@ public class Player : Actor
         Knockback();
         OnTakeDamage?.Invoke();
         if (CurHp > 0) return;
-        //giam so may cua player dang co
+        
+        GameManager.Ins.GameOverChecking(OnLostLifeDelegate,OnDeadDelegate);
+    }
+
+
+    private void OnLostLifeDelegate()
+    {
+        CurHp = m_playerStats.hpUp;
+        OnLostLife?.Invoke();
+    }
+
+    private void OnDeadDelegate()
+    {
+        CurHp = 0;
+        Die();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -194,6 +208,11 @@ public class Player : Actor
             {
                 TakeDamage(enemy.CurDamage);
             }
+        }else if (collision.gameObject.CompareTag(TagConsts.COLLECTABLE_TAG))
+        {
+            Collectable collectable =collision.gameObject.GetComponent<Collectable>();
+            collectable?.Trigger();
+            Destroy(collectable.gameObject);
         }
     }
 

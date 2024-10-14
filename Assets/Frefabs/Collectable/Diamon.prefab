@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5128868976848804251, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.26
       objectReference: {fileID: 0}
     - target: {fileID: 5128868976848804251, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.02
       objectReference: {fileID: 0}
     - target: {fileID: 5128868976848804251, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
       propertyPath: m_LocalPosition.z
@@ -72,6 +72,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 5743941314445664760, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
+      propertyPath: m_TagString
+      value: CollectTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839753760645263689, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839753760645263689, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -82,6 +94,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5743941314445664760, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3384226505813489037}
+    - targetCorrespondingSourceObject: {fileID: 5743941314445664760, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6173375353047733949}
     - targetCorrespondingSourceObject: {fileID: 7202401108505102978, guid: 3e8a2a11c4cb2a94c9a8e6f8c77ad242, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8327649293334874022}
@@ -195,3 +210,19 @@ PolygonCollider2D:
       - {x: 0.40423873, y: 0.15787831}
       - {x: 0.23273408, y: 0.39818817}
   m_UseDelaunayMesh: 0
+--- !u!114 &6173375353047733949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542224220035045617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7ea699fb595b146888a2ad4299ab9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_minBonus: 3
+  m_maxBonus: 8
+  m_lifeTime: 10
+  m_spawnForce: 80

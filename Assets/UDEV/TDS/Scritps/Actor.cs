@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UDEV;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,7 +31,13 @@ public class Actor : MonoBehaviour
     public UnityEvent OnDead;
 
     public bool IsDead { get => m_isDead; set => m_isDead = value; }
-    public float CurHp { get => m_curHp;set=>m_curHp = value; }
+    public float CurHp
+    {
+        get => m_curHp;
+        set => m_curHp = value;
+
+
+    }
 
     protected virtual void Awake()
     {
@@ -66,7 +73,7 @@ public class Actor : MonoBehaviour
         m_isDead = true;
         m_rb.velocity = Vector3.zero;
         OnDead?.Invoke();
-        Destroy(gameObject, 05f);
+        Destroy(gameObject, 0.5f);
     }
 
     public void Knockback()
