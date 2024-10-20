@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
         m_curReloadTime-=Time.deltaTime;
         if (m_curReloadTime > 0) return;
         LoadStats();
-
+        m_isReloading = false;
         OnReloadDone?.Invoke();
     }
     private void ReduceFirerate()

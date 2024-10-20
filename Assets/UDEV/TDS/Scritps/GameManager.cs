@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     private Map m_map;
     private Player m_player;
     private int m_curLife;
+
+    private PlayerStats m_playerStats;
     public Player Player { get => m_player;private set => m_player = value; }
     public int CurLife
     {
@@ -52,24 +54,32 @@ public class GameManager : Singleton<GameManager>
         state = GameState.STARTING;
         m_curLife = m_playerStatingLife;
         SpawnMap_Player();
-        PlayGame();
+        GUIManager.Ins.ShowGameGUI(false);
+        
 
     }
+
+   
     private void SpawnMap_Player()
     {
         if (m_mapPrefab == null || m_playerPrefab == null) return;
         m_map=Instantiate(m_mapPrefab,Vector3.zero, Quaternion.identity);//Quaternion.identity khong xoay
         m_player=Instantiate(m_playerPrefab,m_map.playerSpawnPoint.position,Quaternion.identity);   
+        
     }
 
     public void PlayGame()
     {
-        if (m_player)
-        {
-          
-        }
-
+        state = GameState.PLAYING;
+        m_playerStats = m_player.PlayerStats;
+        if (m_player == null || m_playerStats == null) return;
+               
         SpawnEnemy();
+        GUIManager.Ins.ShowGameGUI(true);
+        GUIManager.Ins.UpDateLifeInfo(m_curLife);
+        GUIManager.Ins.UpdateCoinCounting(Prefs.coins);
+        GUIManager.Ins.UpdateHpInfo(m_player.CurHp, m_playerStats.hp);
+        GUIManager.Ins.UpdateLevelInfo(m_playerStats.level, m_playerStats.xp, m_playerStats.levelUpXpRequired);
     }
 
     private void SpawnEnemy()
@@ -91,7 +101,7 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator SpawnEnemy_Coroutine(Enemy randomEnemy)
     {
         yield return new WaitForSeconds(3f);
-        state = GameState.PLAYING;
+      
         while(state==GameState.PLAYING)
         {
             if (m_map.RandomAISpawnPoint == null) break;

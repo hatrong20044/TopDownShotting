@@ -179,6 +179,7 @@ public class Player : Actor
         if ( m_isInvincible) return;
 
         CurHp -= damage;
+        CurHp=Mathf.Clamp(CurHp, 0, PlayerStats.hpUp);
         Knockback();
         OnTakeDamage?.Invoke();
         if (CurHp > 0) return;
@@ -189,7 +190,17 @@ public class Player : Actor
 
     private void OnLostLifeDelegate()
     {
-        CurHp = m_playerStats.hpUp;
+        
+        CurHp = m_playerStats.hp;
+        if (m_stopKnockbackCo != null)
+        {
+            StopCoroutine(m_stopKnockbackCo);
+        }
+        if(m_invincibleCo != null)
+        {
+            StopCoroutine (m_invincibleCo);
+        }
+        InVincible(3.5f);
         OnLostLife?.Invoke();
     }
 

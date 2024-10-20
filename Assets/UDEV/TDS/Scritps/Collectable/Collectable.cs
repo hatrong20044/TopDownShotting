@@ -36,9 +36,10 @@ public class Collectable : MonoBehaviour
 
     private IEnumerator DisappearNoticeCountDown()
     {
-        float timeLifeLeftRate = Mathf.Round((float)m_lifeTimeCounting / m_lifeTime);
+       
         while (m_lifeTimeCounting > 0)
         {
+            float timeLifeLeftRate = Mathf.Round((float)m_lifeTimeCounting / m_lifeTime);
             yield return new WaitForSeconds(1f);
             m_lifeTimeCounting--;
             if(timeLifeLeftRate<=0.3f&& m_flashVfx!=null){

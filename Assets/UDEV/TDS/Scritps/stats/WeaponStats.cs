@@ -55,7 +55,7 @@ public class WeaponStats : Stats
             Prefs.coins -= upgradePrice;
             level++;
             bullets += bulletsUp * level;
-            firerate += firerateUp * Helper.GetUpgradeFormula(level);
+            firerate -= firerateUp * Helper.GetUpgradeFormula(level);//dooj delay
             firerate=Mathf.Clamp(firerate, minFirerate, firerate);
 
             reloadTime-=reloadTimeUp*Helper.GetUpgradeFormula(level);

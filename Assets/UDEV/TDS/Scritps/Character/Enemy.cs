@@ -47,7 +47,7 @@ public class Enemy : Actor
 
     private void OnAddXpToPlayer()
     {
-
+        GameManager.Ins.Player.AddXp(m_xpBonus);
     }
     private void FixedUpdate()
     {
